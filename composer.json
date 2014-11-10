@@ -3,27 +3,27 @@
 	"description": "ACL system based on annotations for CakePHP",
 	"type": "cakephp-plugin",
 	"keywords": ["cakephp","annotations", "acl"],
-  "homepage": "http://github.com/josegonzalez/cakephp-annotation-control-list",
+	"homepage": "http://github.com/josegonzalez/cakephp-annotation-control-list",
 	"license": "MIT",
 	"authors": [
-    {
-      "name": "Jose Diaz-Gonzalez",
-      "email": "email@josediazgonzalez.com",
-      "homepage": "http://josediazgonzalez.com",
-      "role": "Maintainer"
-    }
-  ],
+		{
+			"name": "Jose Diaz-Gonzalez",
+			"email": "email@josediazgonzalez.com",
+			"homepage": "http://josediazgonzalez.com",
+			"role": "Maintainer"
+		}
+	],
 	"require": {
 		"php": ">=5.4",
-    "composer/installers": "*",
+		"composer/installers": "*",
 		"minime/annotations": "~1.14"
-  },
-  "support": {
-    "email": "cakephp+annotations-control-list@josediazgonzalez.com",
-    "issues": "https://github.com/josegonzalez/cakephp-annotation-control-list/issues",
-    "source": "https://github.com/josegonzalez/cakephp-annotation-control-list"
-  },
-  "extra": {
-    "installer-name": "AnnotationControlList"
-  }
+	},
+	"support": {
+		"email": "cakephp+annotations-control-list@josediazgonzalez.com",
+		"issues": "https://github.com/josegonzalez/cakephp-annotation-control-list/issues",
+		"source": "https://github.com/josegonzalez/cakephp-annotation-control-list"
+	},
+	"extra": {
+		"installer-name": "AnnotationControlList"
+	}
 }

@@ -24,6 +24,6 @@
     "source": "https://github.com/josegonzalez/cakephp-annotation-control-list"
   },
   "extra": {
-    "installer-name": "Upload"
+    "installer-name": "AnnotationControlList"
   }
 }

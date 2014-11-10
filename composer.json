@@ -1,0 +1,12 @@
+{
+	"name": "josegonzalez/cakephp-annotation-control-list",
+	"description": "ACL system based on annotations for CakePHP",
+	"type": "cakephp-plugin",
+	"keywords": ["cakephp","annotations", "acl"],
+	"homepage": "http://cakedc.com",
+	"license": "MIT",
+	"require": {
+		"php": ">=5.4",
+		"minime/annotations": "~1.14"
+	}
+}

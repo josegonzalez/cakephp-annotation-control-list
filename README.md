@@ -125,15 +125,15 @@ The following classes are available for your convenience
 
 These extend the core classes and override the following methods:
 
-- isAuthorized
-- getActionRoles
-- getPrefixedAnnotations
-- getAnnotations
-- processRoles
-- authorize
-- unauthenticated
-- getController
-- prefix
+- `isAuthorized`
+- `getActionRoles`
+- `getPrefixedAnnotations`
+- `getAnnotations`
+- `processRoles`
+- `authorize`
+- `unauthenticated`
+- `getController`
+- `prefix`
 
 #### Custom Authenticate Classes
 

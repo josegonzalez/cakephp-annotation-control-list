@@ -58,6 +58,8 @@ If you are already using `CakePlugin::loadAll();`, then this is not necessary.
 
 ## Usage
 
+### Basic Annotation Usage
+
 Setup your `AuthComponent` to use the `AnnotationAuthorize` and `AnnotationFormAuthenticate` classes:
 
 ```php
@@ -73,7 +75,7 @@ public $components = [
 ];
 ```
 
-### Requiring roles for a given action
+#### Requiring roles for a given action
 
 Annotate your methods with the roles you want to allow:
 
@@ -103,7 +105,7 @@ public function admin() {}
 
 You can specify one or more roles in any of the above formats. If no role is specified for an action, then no user will be allowed access.
 
-### Special Roles
+#### Special Roles
 
 The following roles have a special meaning:
 
@@ -111,18 +113,32 @@ The following roles have a special meaning:
 - `anonymous`: Users that have not yet authenticated against your app will have this role
 - `authenticated`: Users that have been authenticated fall in this role
 
-### Custom Authenticate Classes
+#### Available Classes
+
+The following classes are available for your convenience
+
+- `AnnotationAuthorize`
+- `AnnotationBasicAuthenticate`
+- `AnnotationBlowfishAuthenticate`
+- `AnnotationDigestAuthenticate`
+- `AnnotationFormAuthenticate`
+
+These extend the core classes and override the following methods:
+
+- isAuthorized
+- getActionRoles
+- getPrefixedAnnotations
+- getAnnotations
+- processRoles
+- authorize
+- unauthenticated
+- getController
+- prefix
+
+#### Custom Authenticate Classes
 
 The `AnnotationFormAuthenticate` class extends `FormAuthenticate` to override the `unauthorized()` method, allowing us to use this annotations to define access even if the user has not yet authenticated. You can follow this pattern for any Authenticate class you create/use by adding the following to either your custom authenticate class or a subclass of one of the core classes:
 
 ```php
 	use AnnotationParser;
-
-	public function unauthenticated(CakeRequest $request, CakeResponse $response) {
-		return $this->isAuthorized(null, $request->param('action'));
-	}
-
-	public function getController() {
-		return $this->_Collection->getController();
-	}
 ```

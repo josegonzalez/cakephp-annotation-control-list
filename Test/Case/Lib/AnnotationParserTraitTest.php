@@ -5,6 +5,7 @@ App::build([
 	'Lib' => [$pluginPath . 'Test' . DS . 'test_app' . DS . 'Lib' . DS],
 ]);
 
+App::uses('ComponentCollection', 'Controller');
 App::uses('TestAnnotationController', 'Controller');
 App::uses('TestAnnotationParserImpl', 'Lib');
 

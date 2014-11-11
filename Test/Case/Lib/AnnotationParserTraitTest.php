@@ -126,12 +126,16 @@ class AnnotationParserTraitTest extends CakeTestCase {
 	}
 
 /**
- * @covers AnnotationParserTrait::settings
+ * @covers AnnotationParserTrait::roleField
  */
-	public function testSettings() {
-		$this->assertEquals([], $this->traitObject->settings());
+	public function testRoleField() {
+		$this->assertEquals('role', $this->traitObject->roleField());
+
+		$this->traitObject->settings = ['roleField' => 'group'];
+		$this->assertEquals('group', $this->traitObject->roleField());
+
 		$this->traitObject->settings = ['key' => 'value'];
-		$this->assertEquals(['key' => 'value'], $this->traitObject->settings());
+		$this->assertEquals('role', $this->traitObject->roleField());
 	}
 
 	public function isAuthorizedProvider() {

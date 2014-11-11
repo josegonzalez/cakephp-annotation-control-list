@@ -67,10 +67,14 @@ public $components = [
 	'Auth' => [
 		'authenticate' => [
 			'AnnotationControlList.AnnotationForm' => [
-				'passwordHasher' => 'Blowfish'
+				'passwordHasher' => 'Blowfish',
+				'roleField' => 'role',  // `roleField` is `role` by default
 			]
 		],
-		'authorize' => ['AnnotationControlList.Annotation'],
+		'authorize' => [
+			'AnnotationControlList.Annotation',
+			'roleField' => 'role',  // `roleField` is `role` by default
+		],
 	]
 ];
 ```

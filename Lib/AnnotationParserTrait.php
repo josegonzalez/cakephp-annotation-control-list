@@ -38,7 +38,8 @@ trait AnnotationParserTrait {
 		}
 
 		// allow only users who have the correct role
-		return in_array($user['role'], $roles);
+		$roleField = Hash::get($this->settings, 'roleField', 'role');
+		return in_array($roleField, $roles);
 	}
 
 /**

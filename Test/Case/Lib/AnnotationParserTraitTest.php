@@ -12,102 +12,185 @@ class AnnotationParserTraitTest extends CakeTestCase {
 
 	public function assertPreConditions() {
 		parent::assertPreConditions();
-		$Controller = new TestAnnotationController(null, null);
-		$this->traitObject = new TestAnnotationParserImpl($Controller);
+		$this->Controller = new TestAnnotationController(null, null);
+		$this->traitObject = new TestAnnotationParserImpl($this->Controller);
 	}
 
 	public function assertPostConditions() {
 		unset($this->traitObject);
+		unset($this->Controller);
 	}
 
-	public function testIsAuthorized() {
-		$anonymousUser = [];
-		$this->assertTrue($this->traitObject->isAuthorized($anonymousUser, 'index'));
-		$this->assertTrue($this->traitObject->isAuthorized($anonymousUser, 'anonymous'));
-		$this->assertFalse($this->traitObject->isAuthorized($anonymousUser, 'view'));
-		$this->assertFalse($this->traitObject->isAuthorized($anonymousUser, 'add'));
-		$this->assertFalse($this->traitObject->isAuthorized($anonymousUser, 'administrative'));
-		$this->assertFalse($this->traitObject->isAuthorized($anonymousUser, 'administrative_two'));
-
-		$authenticatedUser = ['id' => 1, 'role' => 'authenticated'];
-		$this->assertTrue($this->traitObject->isAuthorized($authenticatedUser, 'index'));
-		$this->assertFalse($this->traitObject->isAuthorized($authenticatedUser, 'anonymous'));
-		$this->assertTrue($this->traitObject->isAuthorized($authenticatedUser, 'view'));
-		$this->assertFalse($this->traitObject->isAuthorized($authenticatedUser, 'add'));
-		$this->assertFalse($this->traitObject->isAuthorized($authenticatedUser, 'administrative'));
-		$this->assertFalse($this->traitObject->isAuthorized($authenticatedUser, 'administrative_two'));
-
-		$adminUser = ['id' => 1, 'role' => 'admin'];
-		$this->assertTrue($this->traitObject->isAuthorized($adminUser, 'index'));
-		$this->assertFalse($this->traitObject->isAuthorized($adminUser, 'anonymous'));
-		$this->assertTrue($this->traitObject->isAuthorized($adminUser, 'view'));
-		$this->assertTrue($this->traitObject->isAuthorized($adminUser, 'add'));
-		$this->assertTrue($this->traitObject->isAuthorized($adminUser, 'administrative'));
-		$this->assertTrue($this->traitObject->isAuthorized($adminUser, 'administrative_two'));
-
-		$managerUser = ['id' => 1, 'role' => 'manager'];
-		$this->assertTrue($this->traitObject->isAuthorized($managerUser, 'index'));
-		$this->assertFalse($this->traitObject->isAuthorized($managerUser, 'anonymous'));
-		$this->assertTrue($this->traitObject->isAuthorized($managerUser, 'view'));
-		$this->assertFalse($this->traitObject->isAuthorized($managerUser, 'add'));
-		$this->assertTrue($this->traitObject->isAuthorized($managerUser, 'administrative'));
-		$this->assertTrue($this->traitObject->isAuthorized($managerUser, 'administrative_two'));
-
-		$ceoUser = ['id' => 1, 'role' => 'ceo'];
-		$this->assertTrue($this->traitObject->isAuthorized($ceoUser, 'index'));
-		$this->assertFalse($this->traitObject->isAuthorized($ceoUser, 'anonymous'));
-		$this->assertTrue($this->traitObject->isAuthorized($ceoUser, 'view'));
-		$this->assertFalse($this->traitObject->isAuthorized($ceoUser, 'add'));
-		$this->assertFalse($this->traitObject->isAuthorized($ceoUser, 'administrative'));
-		$this->assertTrue($this->traitObject->isAuthorized($ceoUser, 'administrative_two'));
+/**
+ * @dataProvider isAuthorizedProvider
+ * @covers AnnotationParserTrait::isAuthorized
+ */
+	public function testIsAuthorized($expected, $user, $action) {
+		$this->assertEquals($expected, $this->traitObject->isAuthorized($user, $action));
 	}
 
-	public function testGetActionRoles() {
-		$this->assertEquals(
-			['all'],
-			$this->traitObject->getActionRoles('index')
-		);
-		$this->assertEquals(
-			['anonymous'],
-			$this->traitObject->getActionRoles('anonymous')
-		);
-		$this->assertEquals(
-			['authenticated'],
-			$this->traitObject->getActionRoles('view')
-		);
-		$this->assertEquals(
-			['admin'],
-			$this->traitObject->getActionRoles('add')
-		);
-		$this->assertEquals(
-			['admin', 'manager'],
-			$this->traitObject->getActionRoles('administrative')
-		);
-		$this->assertEquals(
-			['admin', 'manager', 'ceo'],
-			$this->traitObject->getActionRoles('administrative_two')
-		);
+/**
+ * @dataProvider getActionRolesProvider
+ * @covers AnnotationParserTrait::getActionRoles
+ */
+	public function testGetActionRoles($expected, $action) {
+		$this->assertEquals($expected, $this->traitObject->getActionRoles($action));
 	}
 
-	public function testProcessRoles() {
-		$this->assertEquals([], $this->traitObject->processRoles(null));
-		$this->assertEquals([], $this->traitObject->processRoles(''));
-		$this->assertEquals(['admin'], $this->traitObject->processRoles('admin'));
-		$this->assertEquals(['admin'], $this->traitObject->processRoles(' admin '));
+/**
+ * @covers AnnotationParserTrait::getPrefixedAnnotations
+ */
+	public function testGetPrefixedAnnotations() {
+		$anonymousAnnotations = $this->traitObject->getPrefixedAnnotations('action');
+		$this->assertEquals(['noprefix'], $anonymousAnnotations->get('roles'));
 
-		$this->assertEquals(['admin', 'anonymous'],
-			$this->traitObject->processRoles('admin,anonymous')
-		);
-		$this->assertEquals(['admin', 'anonymous'],
-			$this->traitObject->processRoles('admin, anonymous')
-		);
+		$anonymousAnnotations = $this->traitObject->getPrefixedAnnotations('prefix_action');
+		$this->assertNull($anonymousAnnotations->get('roles'));
 
-		$this->assertEquals(['admin', 'anonymous'],
-			$this->traitObject->processRoles(['admin', 'anonymous'])
-		);
-		$this->assertEquals(['admin', 'anonymous', 'all'],
-			$this->traitObject->processRoles(['admin', 'anonymous', 'all'])
-		);
+		$this->traitObject = new TestAnnotationParserImpl($this->Controller);
+		$this->traitObject->prefix('some_prefix');
+		$anonymousAnnotations = $this->traitObject->getPrefixedAnnotations('prefix_action');
+		$this->assertNotNull($anonymousAnnotations->get('roles'));
+		$this->assertEquals(['prefix'], $anonymousAnnotations->get('roles'));
+	}
+
+/**
+ * @covers AnnotationParserTrait::getAnnotations
+ */
+	public function testGetAnnotations() {
+		$anonymousAnnotations = $this->traitObject->getAnnotations('anonymous');
+		$this->assertEquals('anonymous', $anonymousAnnotations->get('roles'));
+		$this->assertEquals($anonymousAnnotations, $this->traitObject->getAnnotations('anonymous'));
+
+		$adminAnnotations = $this->traitObject->getAnnotations('administrative');
+		$this->assertNotEquals($anonymousAnnotations, $adminAnnotations);
+		$this->assertEquals('admin, manager', $adminAnnotations->get('roles'));
+	}
+
+/**
+ * @dataProvider processRolesProvider
+ * @covers AnnotationParserTrait::processRoles
+ */
+	public function testProcessRoles($expected, $roles) {
+		$this->assertEquals($expected, $this->traitObject->processRoles($roles));
+	}
+
+/**
+ * @covers AnnotationParserTrait::authorize
+ */
+	public function testAuthorize() {
+		$Request = $this->getMock('CakeRequest');
+
+		$Request->action = 'anonymous';
+		$this->assertTrue($this->traitObject->authorize([], $Request));
+
+		$Request->action = 'administrative';
+		$this->assertFalse($this->traitObject->authorize([], $Request));
+	}
+
+/**
+ * @covers AnnotationParserTrait::unauthenticated
+ */
+	public function testUnauthenticated() {
+		$Request = $this->getMock('CakeRequest');
+		$Response = $this->getMock('CakeResponse');
+
+		$Request->action = 'anonymous';
+		$this->assertTrue($this->traitObject->unauthenticated($Request, $Response));
+
+		$Request->action = 'administrative';
+		$this->assertFalse($this->traitObject->unauthenticated($Request, $Response));
+	}
+
+/**
+ * @covers AnnotationParserTrait::getController
+ */
+	public function testGetController() {
+		$this->assertEquals($this->Controller, $this->traitObject->getController());
+
+		$traitObject = new TestAnnotationParserImpl($this->Controller);
+		$collection = new ComponentCollection();
+		$collection->init($this->Controller);
+		$traitObject->setCollection($collection);
+		$this->assertEquals($this->Controller, $traitObject->getController());
+	}
+
+/**
+ * @covers AnnotationParserTrait::prefix
+ */
+	public function testPrefix() {
+		$this->assertNull($this->traitObject->prefix());
+		$this->assertEquals('prefix', $this->traitObject->prefix('prefix'));
+		$this->assertEquals('prefix', $this->traitObject->prefix());
+	}
+
+	public function isAuthorizedProvider() {
+		return [
+			// anonymous
+			[false, [], 'none'],
+			[true, [], 'index'],
+			[true, [], 'anonymous'],
+			[false, [], 'view'],
+			[false, [], 'add'],
+			[false, [], 'administrative'],
+			[false, [], 'administrative_two'],
+			// authenticated
+			[false, ['id' => 1, 'role' => 'authenticated'], 'none'],
+			[true, ['id' => 1, 'role' => 'authenticated'], 'index'],
+			[false, ['id' => 1, 'role' => 'authenticated'], 'anonymous'],
+			[true, ['id' => 1, 'role' => 'authenticated'], 'view'],
+			[false, ['id' => 1, 'role' => 'authenticated'], 'add'],
+			[false, ['id' => 1, 'role' => 'authenticated'], 'administrative'],
+			[false, ['id' => 1, 'role' => 'authenticated'], 'administrative_two'],
+			// admin
+			[false, ['id' => 1, 'role' => 'admin'], 'none'],
+			[true, ['id' => 1, 'role' => 'admin'], 'index'],
+			[false, ['id' => 1, 'role' => 'admin'], 'anonymous'],
+			[true, ['id' => 1, 'role' => 'admin'], 'view'],
+			[true, ['id' => 1, 'role' => 'admin'], 'add'],
+			[true, ['id' => 1, 'role' => 'admin'], 'administrative'],
+			[true, ['id' => 1, 'role' => 'admin'], 'administrative_two'],
+			// manager
+			[false, ['id' => 1, 'role' => 'manager'], 'none'],
+			[true, ['id' => 1, 'role' => 'manager'], 'index'],
+			[false, ['id' => 1, 'role' => 'manager'], 'anonymous'],
+			[true, ['id' => 1, 'role' => 'manager'], 'view'],
+			[false, ['id' => 1, 'role' => 'manager'], 'add'],
+			[true, ['id' => 1, 'role' => 'manager'], 'administrative'],
+			[true, ['id' => 1, 'role' => 'manager'], 'administrative_two'],
+			// ceo
+			[false, ['id' => 1, 'role' => 'ceo'], 'none'],
+			[true, ['id' => 1, 'role' => 'ceo'], 'index'],
+			[false, ['id' => 1, 'role' => 'ceo'], 'anonymous'],
+			[true, ['id' => 1, 'role' => 'ceo'], 'view'],
+			[false, ['id' => 1, 'role' => 'ceo'], 'add'],
+			[false, ['id' => 1, 'role' => 'ceo'], 'administrative'],
+			[true, ['id' => 1, 'role' => 'ceo'], 'administrative_two'],
+		];
+	}
+
+	public function processRolesProvider() {
+		return [
+			[[], null],
+			[[], ''],
+			[['admin'], 'admin'],
+			[['admin'], ' admin '],
+			[['admin', 'anonymous'], 'admin,anonymous'],
+			[['admin', 'anonymous'], 'admin, anonymous'],
+			[['admin', 'anonymous'], ['admin', 'anonymous']],
+			[['admin', 'anonymous', 'all'], ['admin', 'anonymous', 'all']],
+		];
+	}
+
+	public function getActionRolesProvider() {
+		return [
+			[['all'], 'index'],
+			[['anonymous'], 'anonymous'],
+			[['authenticated'], 'view'],
+			[['admin'], 'add'],
+			[['admin', 'manager'], 'administrative'],
+			[['admin', 'manager', 'ceo'], 'administrative_two'],
+		];
 	}
 
 }

@@ -3,6 +3,9 @@ App::uses('Controller', 'Controller');
 
 class TestAnnotationController extends Controller {
 
+	public function none() {
+	}
+
 /**
  * @roles all
  */
@@ -37,6 +40,18 @@ class TestAnnotationController extends Controller {
  * @roles ["admin", "manager", "ceo"]
  */
 	public function administrative_two() {
+	}
+
+/**
+ * @roles ["noprefix"]
+ */
+	public function action() {
+	}
+
+/**
+ * @some_prefix.roles ["prefix"]
+ */
+	public function prefix_action() {
 	}
 
 }

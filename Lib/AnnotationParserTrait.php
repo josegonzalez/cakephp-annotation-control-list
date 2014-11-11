@@ -4,6 +4,10 @@ use Minime\Annotations\Facade;
 
 trait AnnotationParserTrait {
 
+	protected $_actionAnnotations = [];
+
+	protected $_prefix = null;
+
 /**
  * Returns whether a user is allowed access to a given action
  *
@@ -38,14 +42,48 @@ trait AnnotationParserTrait {
 	}
 
 /**
- * retrieve all the roles for the current controller action
+ * Retrieve all the processed roles for the current controller action
  *
  * @param string $action name of action to get roles for
  * @return array list of roles attached to the specified action
  */
 	public function getActionRoles($action) {
-		$annotations = Facade::getMethodAnnotations($this->getController(), $action);
+		$annotations = $this->getPrefixedAnnotations($action);
 		return $this->processRoles($annotations->get('roles'));
+	}
+
+/**
+ * Retrieve all the roles for the controller action with a set prefix
+ *
+ * @param string $action name of action to get roles for
+ * @return array list of roles attached to the specified action
+ */
+	public function getPrefixedAnnotations($action) {
+		$prefix = $this->prefix();
+		$annotations = $this->getAnnotations($action);
+
+		if (!empty($prefix)) {
+			$annotations = $annotations->useNamespace($prefix);
+		}
+
+		return $annotations;
+	}
+
+/**
+ * Retrieve all the roles for the controller action
+ *
+ * @param string $action name of action to get roles for
+ * @return array list of roles attached to the specified action
+ */
+	public function getAnnotations($action) {
+		if (!isset($this->_actionAnnotations[$action])) {
+			$this->_actionAnnotations[$action] = Facade::getMethodAnnotations(
+				$this->getController(),
+				$action
+			);
+		}
+
+		return $this->_actionAnnotations[$action];
 	}
 
 /**
@@ -80,7 +118,7 @@ trait AnnotationParserTrait {
  * @return bool
  */
 	public function authorize($user, CakeRequest $request) {
-		return $this->isAuthorized($user, $request->param('action'));
+		return $this->isAuthorized($user, $request->action);
 	}
 
 /**
@@ -92,7 +130,8 @@ trait AnnotationParserTrait {
  *  dealt with and no more action is required by AuthComponent or void (default).
  */
 	public function unauthenticated(CakeRequest $request, CakeResponse $response) {
-		return $this->isAuthorized(null, $request->param('action'));
+		$response;
+		return $this->isAuthorized(null, $request->action);
 	}
 
 /**
@@ -106,6 +145,24 @@ trait AnnotationParserTrait {
 		}
 
 		return $this->_Controller;
+	}
+
+/**
+ * Getter and setter of the annotations
+ *
+ * @param string $prefix if set, the prefix that should be applied
+ * @return array $prefix prefix for the annotations
+ */
+	public function prefix($prefix = null) {
+		if ($prefix === null) {
+			return $this->_prefix;
+		}
+
+		if (is_string($prefix)) {
+			$prefix = $prefix;
+		}
+
+		return $this->_prefix = $prefix;
 	}
 
 }

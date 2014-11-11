@@ -38,8 +38,8 @@ trait AnnotationParserTrait {
 		}
 
 		// allow only users who have the correct role
-		$roleField = Hash::get($this->settings, 'roleField', 'role');
-		return in_array($roleField, $roles);
+		$roleField = Hash::get($this->settings(), 'roleField', 'role');
+		return in_array($user[$roleField], $roles);
 	}
 
 /**
@@ -152,7 +152,7 @@ trait AnnotationParserTrait {
  * Getter and setter of the annotations
  *
  * @param string $prefix if set, the prefix that should be applied
- * @return array $prefix prefix for the annotations
+ * @return array prefix for the annotations
  */
 	public function prefix($prefix = null) {
 		if ($prefix === null) {
@@ -166,4 +166,16 @@ trait AnnotationParserTrait {
 		return $this->_prefix = $prefix;
 	}
 
+/**
+ * Retrieves settings for the current object
+ *
+ * @return array settings for the current object
+ */
+	public function settings() {
+		if (!empty($this->settings)) {
+			return $this->settings;
+		}
+
+		return [];
+	}
 }

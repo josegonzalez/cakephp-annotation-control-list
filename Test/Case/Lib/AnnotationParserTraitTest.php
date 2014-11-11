@@ -125,6 +125,15 @@ class AnnotationParserTraitTest extends CakeTestCase {
 		$this->assertEquals('prefix', $this->traitObject->prefix());
 	}
 
+/**
+ * @covers AnnotationParserTrait::settings
+ */
+	public function testSettings() {
+		$this->assertEquals([], $this->traitObject->settings());
+		$this->traitObject->settings = ['key' => 'value'];
+		$this->assertEquals(['key' => 'value'], $this->traitObject->settings());
+	}
+
 	public function isAuthorizedProvider() {
 		return [
 			// anonymous

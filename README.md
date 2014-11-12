@@ -25,7 +25,7 @@ Add the plugin to your project's `composer.json` - something like this:
 		}
 	}
 
-Because this plugin has the type `cakephp-plugin` set in it's own `composer.json`, composer knows to install it inside your `/Plugins` directory, rather than in the usual vendors file. It is recommended that you add `/Plugins/AnnotationControlList` to your .gitignore file. (Why? [read this](http://getcomposer.org/doc/faqs/should-i-commit-the-dependencies-in-my-vendor-directory.md).)
+Because this plugin has the type `cakephp-plugin` set in its own `composer.json`, Composer knows to install it inside your `/Plugins` directory, rather than in the usual vendor directory. It is recommended that you add `/Plugins/AnnotationControlList` to your .gitignore file. (Why? [read this](http://getcomposer.org/doc/faqs/should-i-commit-the-dependencies-in-my-vendor-directory.md).)
 
 _[Manual]_
 
@@ -50,7 +50,7 @@ In your plugin directory type
 
 ### Enable plugin
 
-In 2.0 you need to enable the plugin your `app/Config/bootstrap.php` file:
+In 2.0 you need to enable the plugin in your `app/Config/bootstrap.php` file:
 
 		CakePlugin::load('AnnotationControlList');
 
@@ -119,7 +119,7 @@ The following roles have a special meaning:
 
 #### Available Classes
 
-The following classes are available for your convenience
+The following classes are available for your convenience:
 
 - `AnnotationAuthorize`
 - `AnnotationBasicAuthenticate`
@@ -141,7 +141,7 @@ These extend the core classes and override the following methods:
 
 #### Custom Authenticate Classes
 
-The `AnnotationFormAuthenticate` class extends `FormAuthenticate` to override the `unauthorized()` method, allowing us to use this annotations to define access even if the user has not yet authenticated. You can follow this pattern for any Authenticate class you create/use by adding the following to either your custom authenticate class or a subclass of one of the core classes:
+The `AnnotationFormAuthenticate` class extends `FormAuthenticate` to override the `unauthorized()` method, allowing us to use the annotations to define access even if the user has not yet authenticated. You can follow this pattern for any Authenticate class you create/use by adding the following to either your custom authenticate class or a subclass of one of the core classes:
 
 ```php
 	use AnnotationParser;

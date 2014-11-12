@@ -25,7 +25,7 @@ Add the plugin to your project's `composer.json` - something like this:
 		}
 	}
 
-Because this plugin has the type `cakephp-plugin` set in its own `composer.json`, Composer knows to install it inside your `/Plugins` directory, rather than in the usual vendor directory. It is recommended that you add `/Plugins/AnnotationControlList` to your .gitignore file. (Why? [read this](http://getcomposer.org/doc/faqs/should-i-commit-the-dependencies-in-my-vendor-directory.md).)
+Because this plugin has the type `cakephp-plugin` set in its own `composer.json`, Composer knows to install it inside your `/Plugins` directory, rather than in the usual `vendor` directory. It is recommended that you add `/Plugins/AnnotationControlList` to your .gitignore file. (Why? [read this](http://getcomposer.org/doc/faqs/should-i-commit-the-dependencies-in-my-vendor-directory.md).)
 
 _[Manual]_
 

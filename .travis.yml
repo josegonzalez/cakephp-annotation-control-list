@@ -41,6 +41,7 @@ before_script:
   - if [ -f ../cakephp/.travis.yml ]; then cp Test/test_app/composer.json ../cakephp/composer.json; fi
   - if [ -f ../cakephp/.travis.yml ]; then cd ../cakephp && composer require minime/annotations:1.14 && cd -; fi
   - if [ -f ../cakephp/.travis.yml ]; then cd ../cakephp && composer require cakephp/debug_kit:2.2.* && cd -; fi
+  - if [ -f ../cakephp/.travis.yml ]; then mv ../cakephp/Plugin/DebugKit ../cakephp/app/Plugin/DebugKit; fi
 
 script:
   - ../travis/script.sh

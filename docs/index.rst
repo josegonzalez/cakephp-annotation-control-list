@@ -3,15 +3,17 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to cakephp-annotation-control-list's documentation!
-===========================================================
+Welcome to CakePHP AnnotationControlList's documentation!
+=========================================================
 
 Contents:
 
 .. toctree::
    :maxdepth: 2
 
-
+    Installation <installation>
+    Role-based Usage <role-based-usage>
+    Model-based Usage <model-based-usage>
 
 Indices and tables
 ==================

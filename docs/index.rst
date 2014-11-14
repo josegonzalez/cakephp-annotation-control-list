@@ -9,7 +9,7 @@ Welcome to CakePHP AnnotationControlList's documentation!
 Contents:
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
 
     Installation <installation>
     Role-based Usage <role-based-usage>

@@ -51,7 +51,7 @@ In your ``Plugin`` directory type:
     git clone -b master git://github.com/josegonzalez/cakephp-annotation-control-list.git AnnotationControlList
 
 Enable plugin
--------------
+~~~~~~~~~~~~~
 
 You need to enable the plugin in your ``app/Config/bootstrap.php`` file:
 

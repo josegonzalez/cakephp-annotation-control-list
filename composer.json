@@ -18,6 +18,9 @@
 		"composer/installers": "*",
 		"minime/annotations": "~1.14"
 	},
+	"suggest": {
+		"cakephp/debug_kit": "Adds support timing authorization checks",
+	},
 	"support": {
 		"email": "cakephp+annotations-control-list@josediazgonzalez.com",
 		"issues": "https://github.com/josegonzalez/cakephp-annotation-control-list/issues",

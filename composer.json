@@ -19,7 +19,7 @@
 		"minime/annotations": "~1.14"
 	},
 	"suggest": {
-		"cakephp/debug_kit": "Adds support timing authorization checks",
+		"cakephp/debug_kit": "Adds support timing authorization checks"
 	},
 	"support": {
 		"email": "cakephp+annotations-control-list@josediazgonzalez.com",

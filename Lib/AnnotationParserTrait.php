@@ -77,12 +77,12 @@ trait AnnotationParserTrait {
  * Isolates a given namespace of annotations.
  *
  * @param \Minime\Annotations\AnnotationsBag $annotations A bag of annotations
- * @param string $pattern namespace
+ * @param string $prefix namespace
  * @return \Minime\Annotations\AnnotationsBag A bag of annotations
  */
 	protected function useNamespace(AnnotationsBag $annotations, $prefix) {
 		$data = [];
-		$consumer =  '(' . implode('|', array_map('preg_quote', ['.'])) .')';
+		$consumer = '(' . implode('|', array_map('preg_quote', ['.'])) . ')';
 		$namespacePattern = '/^' . preg_quote(rtrim($prefix, '.')) . $consumer . '/';
 
 		foreach ($annotations->toArray() as $key => $value) {

@@ -73,14 +73,20 @@ trait AnnotationParserTrait {
 		return $annotations;
 	}
 
-	protected function useNamespace(AnnotationsBag $annotations, $prefix)
-	{
+/**
+ * Isolates a given namespace of annotations.
+ *
+ * @param \Minime\Annotations\AnnotationsBag $annotations A bag of annotations
+ * @param string $pattern namespace
+ * @return \Minime\Annotations\AnnotationsBag A bag of annotations
+ */
+	protected function useNamespace(AnnotationsBag $annotations, $prefix) {
 		$data = [];
 		$consumer =  '(' . implode('|', array_map('preg_quote', ['.'])) .')';
-		$namespace_pattern = '/^' . preg_quote(rtrim($prefix, '.')) .  $consumer . '/';
+		$namespacePattern = '/^' . preg_quote(rtrim($prefix, '.')) . $consumer . '/';
 
 		foreach ($annotations->toArray() as $key => $value) {
-			$newKey = preg_replace($namespace_pattern, '', $key);
+			$newKey = preg_replace($namespacePattern, '', $key);
 			if ($newKey === null || $newKey === $key) {
 				continue;
 			}
@@ -206,8 +212,12 @@ trait AnnotationParserTrait {
 		return $roleField;
 	}
 
-	protected function reader()
-	{
+/**
+ * Retrieves a reader object
+ *
+ * @return Minime\Annotations\Reader
+ */
+	protected function reader() {
 		if ($this->_reader === null) {
 			$this->_reader = Reader::createFromDefaults();
 		}

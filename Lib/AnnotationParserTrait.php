@@ -67,10 +67,27 @@ trait AnnotationParserTrait {
 		$annotations = $this->getAnnotations($action);
 
 		if (!empty($prefix)) {
-			$annotations = $annotations->useNamespace($prefix);
+			$annotations = $this->useNamespace($annotations, $prefix);
 		}
 
 		return $annotations;
+	}
+
+	protected function useNamespace(AnnotationsBag $annotations, $prefix)
+	{
+		$data = [];
+		$consumer =  '(' . implode('|', array_map('preg_quote', ['.'])) .')';
+		$namespace_pattern = '/^' . preg_quote(rtrim($prefix, '.')) .  $consumer . '/';
+
+		foreach ($annotations->toArray() as $key => $value) {
+			$newKey = preg_replace($namespace_pattern, '', $key);
+			if ($newKey === null || $newKey === $key) {
+				continue;
+			}
+			$data[$newKey] = $value;
+		}
+
+		return new AnnotationsBag($data);
 	}
 
 /**

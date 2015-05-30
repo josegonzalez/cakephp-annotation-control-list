@@ -75,11 +75,11 @@ trait ModelParserTrait {
 			$Model = $controller->$modelName;
 			$record = $this->getData($Model, $methodName, $findMethod, $findOptions);
 		} catch (Exception $e) {
-			CakeLog::debug($e->getMessage());
+				CakeLog::debug($e->getMessage());
 			return false;
 		}
 
-		$rules = $annotations->useNamespace('conditions')->get('if');
+		$rules = $this->useNamespace($annotations, 'conditions')->get('if');
 		if (empty($rules)) {
 			return !empty($record);
 		}
@@ -180,7 +180,7 @@ trait ModelParserTrait {
 		$modelName = $annotations->get('model');
 		$methodName = $annotations->get('method');
 		$findMethod = $annotations->get('find');
-		$findOptions = $annotations->useNamespace('options')->export();
+		$findOptions = $this->useNamespace($annotations, 'options')->toArray();
 
 		if (empty($modelName)) {
 			$modelName = $Controller->modelClass;

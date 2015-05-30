@@ -16,7 +16,7 @@
 	"require": {
 		"php": ">=5.4",
 		"composer/installers": "*",
-		"minime/annotations": "~1.14"
+		"minime/annotations": "2.3.0"
 	},
 	"suggest": {
 		"cakephp/debug_kit": "Adds support timing authorization checks"

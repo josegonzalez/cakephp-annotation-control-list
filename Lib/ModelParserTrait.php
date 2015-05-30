@@ -7,7 +7,7 @@ App::uses('Hash', 'Utility');
 App::uses('Model', 'Model');
 
 use Minime\Annotations\AnnotationsBag;
-use Minime\Annotations\Facade;
+use Minime\Annotations\Reader;
 
 trait ModelParserTrait {
 

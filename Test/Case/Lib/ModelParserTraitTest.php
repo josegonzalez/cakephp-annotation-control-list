@@ -13,7 +13,6 @@ App::uses('TestModelParserImpl', 'Lib');
 CakePlugin::load('DebugKit');
 
 use Minime\Annotations\AnnotationsBag;
-use Minime\Annotations\ParserRules;
 
 class ModelParserTraitTest extends CakeTestCase {
 
@@ -176,7 +175,7 @@ class ModelParserTraitTest extends CakeTestCase {
 			'method' => 'find',
 			'find' => 'first',
 			'findOptions' => [],
-		], new ParserRules);
+		]);
 
 		$Controller = $this->getMock('Controller');
 		$this->assertEquals(
@@ -188,7 +187,7 @@ class ModelParserTraitTest extends CakeTestCase {
 			'method' => 'find',
 			'find' => 'first',
 			'findOptions' => [],
-		], new ParserRules);
+		]);
 
 		$Controller = $this->getMock('Controller');
 		$Controller->modelClass = 'Post';

@@ -1,12 +1,15 @@
 <?php
 
-use Minime\Annotations\Facade;
+use Minime\Annotations\AnnotationsBag;
+use Minime\Annotations\Reader;
 
 trait AnnotationParserTrait {
 
 	protected $_actionAnnotations = [];
 
 	protected $_prefix = null;
+
+	protected $_reader = null;
 
 /**
  * Returns whether a user is allowed access to a given action
@@ -78,7 +81,7 @@ trait AnnotationParserTrait {
  */
 	public function getAnnotations($action) {
 		if (!isset($this->_actionAnnotations[$action])) {
-			$this->_actionAnnotations[$action] = Facade::getMethodAnnotations(
+			$this->_actionAnnotations[$action] = $this->reader()->getMethodAnnotations(
 				$this->getController(),
 				$action
 			);
@@ -184,5 +187,14 @@ trait AnnotationParserTrait {
 		}
 
 		return $roleField;
+	}
+
+	protected function reader()
+	{
+		if ($this->_reader === null) {
+			$this->_reader = Reader::createFromDefaults();
+		}
+
+		return $this->_reader;
 	}
 }

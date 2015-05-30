@@ -23,7 +23,7 @@ trait ModelParserTrait {
  * @return bool whether or not the user is authorized for access
  */
 	public function isAuthorized($user, $action) {
-		$timerExists = class_exists('DebugTimer');
+		$timerExists = Configure::read('debug') && class_exists('DebugTimer');
 		if ($timerExists) {
 			DebugTimer::start(get_called_class() . '->isAuthorized()');
 		}

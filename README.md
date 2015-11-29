@@ -1,4 +1,4 @@
-[![Build Status](hhttps://img.shields.io/travis/josegonzalez/cakephp-annotation-control-list/master.svg?style=flat-square)](https://travis-ci.org/josegonzalez/cakephp-annotation-control-list) 
+[![Build Status](https://img.shields.io/travis/josegonzalez/cakephp-annotation-control-list/master.svg?style=flat-square)](https://travis-ci.org/josegonzalez/cakephp-annotation-control-list) 
 [![Coverage Status](https://img.shields.io/coveralls/josegonzalez/cakephp-annotation-control-list.svg?style=flat-square)](https://coveralls.io/r/josegonzalez/cakephp-annotation-control-list?branch=master) 
 [![Total Downloads](https://img.shields.io/packagist/dt/josegonzalez/cakephp-annotation-control-list.svg?style=flat-square)](https://packagist.org/packages/josegonzalez/cakephp-annotation-control-list) 
 [![Latest Stable Version](https://img.shields.io/packagist/v/josegonzalez/cakephp-annotation-control-list.svg?style=flat-square)](https://packagist.org/packages/josegonzalez/cakephp-annotation-control-list) 

@@ -14,10 +14,15 @@
 		}
 	],
 	"require": {
+        "cakephp/cakephp": "~3.0",
 		"php": ">=5.4",
-		"composer/installers": "*",
 		"minime/annotations": "2.3.0"
 	},
+    "require-dev": {
+        "cakephp/debug_kit": "~3.2",
+        "cakephp/cakephp-codesniffer": "dev-master",
+        "satooshi/php-coveralls": "dev-master"
+    },
 	"suggest": {
 		"cakephp/debug_kit": "Adds support timing authorization checks"
 	},
@@ -26,7 +31,15 @@
 		"issues": "https://github.com/josegonzalez/cakephp-annotation-control-list/issues",
 		"source": "https://github.com/josegonzalez/cakephp-annotation-control-list"
 	},
-	"extra": {
-		"installer-name": "AnnotationControlList"
-	}
+    "autoload": {
+        "psr-4": {
+            "Josegonzalez\\AnnotationControlList\\": "src",
+            "Josegonzalez\\AnnotationControlList\\Test\\Fixture\\": "tests\\Fixture"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Josegonzalez\\AnnotationControlList\\Test\\": "tests"
+        }
+    }
 }

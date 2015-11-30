@@ -73,7 +73,6 @@ The following classes are available for your convenience:
 
 - ``AnnotationAuthorize``
 - ``AnnotationBasicAuthenticate``
-- ``AnnotationBlowfishAuthenticate``
 - ``AnnotationDigestAuthenticate``
 - ``AnnotationFormAuthenticate``
 

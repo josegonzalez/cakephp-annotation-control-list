@@ -127,7 +127,6 @@ The following classes are available for your convenience:
 
 - ``ModelAuthorize``
 - ``ModelBasicAuthenticate``
-- ``ModelBlowfishAuthenticate``
 - ``ModelDigestAuthenticate``
 - ``ModelFormAuthenticate``
 

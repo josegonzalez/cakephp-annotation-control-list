@@ -16,7 +16,7 @@
     "require": {
         "php": ">=5.6",
         "cakephp/cakephp": "~3.2",
-        "minime/annotations": "2.3.0"
+        "minime/annotations": "~2.3"
     },
     "require-dev": {
         "cakephp/cakephp-codesniffer": "dev-master",

@@ -1,36 +1,37 @@
 {
-	"name": "josegonzalez/cakephp-annotation-control-list",
-	"description": "ACL system based on annotations for CakePHP",
-	"type": "cakephp-plugin",
-	"keywords": ["cakephp","annotations", "acl"],
-	"homepage": "http://github.com/josegonzalez/cakephp-annotation-control-list",
-	"license": "MIT",
-	"authors": [
-		{
-			"name": "Jose Diaz-Gonzalez",
-			"email": "email@josediazgonzalez.com",
-			"homepage": "http://josediazgonzalez.com",
-			"role": "Maintainer"
-		}
-	],
-	"require": {
-        "cakephp/cakephp": "~3.0",
-		"php": ">=5.4",
-		"minime/annotations": "2.3.0"
-	},
+    "name": "josegonzalez/cakephp-annotation-control-list",
+    "description": "ACL system based on annotations for CakePHP",
+    "type": "cakephp-plugin",
+    "keywords": ["cakephp","annotations", "acl"],
+    "homepage": "http://github.com/josegonzalez/cakephp-annotation-control-list",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jose Diaz-Gonzalez",
+            "email": "email@josediazgonzalez.com",
+            "homepage": "http://josediazgonzalez.com",
+            "role": "Maintainer"
+        }
+    ],
+    "require": {
+        "php": ">=5.6",
+        "cakephp/cakephp": "~3.2",
+        "minime/annotations": "2.3.0"
+    },
     "require-dev": {
-        "cakephp/debug_kit": "~3.2",
         "cakephp/cakephp-codesniffer": "dev-master",
+        "cakephp/debug_kit": "~3.2",
+        "phpunit/phpunit": "*",
         "satooshi/php-coveralls": "dev-master"
     },
-	"suggest": {
-		"cakephp/debug_kit": "Adds support timing authorization checks"
-	},
-	"support": {
-		"email": "cakephp+annotations-control-list@josediazgonzalez.com",
-		"issues": "https://github.com/josegonzalez/cakephp-annotation-control-list/issues",
-		"source": "https://github.com/josegonzalez/cakephp-annotation-control-list"
-	},
+    "suggest": {
+        "cakephp/debug_kit": "Adds support timing authorization checks"
+    },
+    "support": {
+        "email": "cakephp+annotations-control-list@josediazgonzalez.com",
+        "issues": "https://github.com/josegonzalez/cakephp-annotation-control-list/issues",
+        "source": "https://github.com/josegonzalez/cakephp-annotation-control-list"
+    },
     "autoload": {
         "psr-4": {
             "Josegonzalez\\AnnotationControlList\\": "src",

@@ -1,4 +1,4 @@
-FROM php:5.5
+FROM php:5.6
 
 ENV DEBIAN_FRONTEND=noninteractive LC_ALL=C DOCKER=1
 
@@ -20,21 +20,17 @@ RUN docker-php-ext-install mbstring
 
 RUN docker-php-ext-install mysql
 
-RUN apt-get -qq install -qq -y php5-redis && pecl install -o -f redis && \
-
-    rm -rf /tmp/pear && \
-
-    echo "extension=redis.so" > /usr/local/etc/php/conf.d/redis.ini
+RUN docker-php-ext-install pdo_mysql
 
 RUN apt-get -qq install -qq -y php5-xdebug && pecl install -o -f xdebug && \
 
     rm -rf /tmp/pear && \
 
-    echo "zend_extension=/usr/local/lib/php/extensions/no-debug-non-zts-20121212/xdebug.so" > /usr/local/etc/php/conf.d/xdebug.ini
+    echo "zend_extension=/usr/local/lib/php/extensions/no-debug-non-zts-20131226/xdebug.so" > /usr/local/etc/php/conf.d/xdebug.ini
 
 RUN \
 
-    curl -sS https://phar.phpunit.de/phpunit-old.phar > phpunit.phar && \
+    curl -sSL https://phar.phpunit.de/phpunit-old.phar > phpunit.phar && \
 
     curl -sS https://getcomposer.org/installer | php && \
 
@@ -56,29 +52,25 @@ RUN echo "date.timezone = UTC" > /usr/local/etc/php/conf.d/timezone.ini
 
 RUN composer self-update
 
-RUN composer install --prefer-source --no-interaction --dev
-
-RUN sh -c "if [ '$DB' = 'mysql' ]; then if [ '$DOCKER' = '1' ]; then apt-get -qq install -qq -y mysql-server && service mysql start; fi; mysql -e 'CREATE DATABASE cakephp_test;'; fi"
-
-RUN sh -c "if [ '$DB' = 'pgsql' ]; then psql -c 'CREATE DATABASE cakephp_test;' -U postgres; fi"
-
-RUN sh -c "if [ '$PHPCS' = '1' ]; then composer require 'cakephp/cakephp-codesniffer:dev-master'; fi"
-
-RUN sh -c "if [ '$COVERALLS' = '1' ]; then composer require --dev satooshi/php-coveralls:dev-master; fi"
+RUN composer install --prefer-source --no-interaction
 
 RUN sh -c "if [ '$COVERALLS' = '1' ]; then mkdir -p build/logs; fi"
 
 RUN command -v phpenv > /dev/null && phpenv rehash || true
 
+RUN ls /usr/local/lib/php/extensions/
+
 ADD . /app
 
 ENV COVERALLS=1 DEFAULT=1 PHPCS=1
 
-RUN sh -c "if [ '$COVERALLS' = '1' ]; then phpunit --stderr --coverage-clover build/logs/clover.xml; fi"
+RUN sh -c "if [ '$COVERALLS' = '1' ]; then vendor/bin/phpunit --version; fi"
 
-RUN sh -c "if [ '$COVERALLS' = '1' ]; then php vendor/bin/coveralls -c .coveralls.yml -v; fi"
+RUN sh -c "if [ '$COVERALLS' = '1' ]; then vendor/bin/phpunit --stderr --coverage-clover build/logs/clover.xml; fi"
 
-RUN sh -c "if [ '$DEFAULT' = '1' ]; then phpunit --stderr; fi"
+RUN sh -c "if [ '$COVERALLS' = '1' ]; then vendor/bin/coveralls -v; fi"
+
+RUN sh -c "if [ '$DEFAULT' = '1' ]; then vendor/bin/phpunit --stderr; fi"
 
 RUN sh -c "if [ '$PHPCS' = '1' ]; then vendor/bin/phpcs -n -p --extensions=php --standard=vendor/cakephp/cakephp-codesniffer/CakePHP --ignore=vendor --ignore=docs --ignore=tests/bootstrap.php . ; fi"
 

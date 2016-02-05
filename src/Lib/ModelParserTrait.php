@@ -6,6 +6,7 @@ use Cake\Core\Configure;
 use Cake\Log\Log;
 use Cake\ORM\Table;
 use Cake\Utility\Hash;
+use Exception;
 use Minime\Annotations\AnnotationsBag;
 use Minime\Annotations\Reader;
 

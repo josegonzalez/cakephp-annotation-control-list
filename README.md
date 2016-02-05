@@ -15,10 +15,11 @@ For the [CakePHP book](http://josediazgonzalez.com/cakephp-book/) I wrote, I tho
 
 ## Requirements
 
-* PHP 5.4+
-* CakePHP 2.x
+* PHP 5.6+
+* CakePHP 3.2+
 
 ## Documentation
+
 For documentation, please see the [the docs](http://cakephp-annotation-control-list.readthedocs.org/en/latest/).
 
 ## License

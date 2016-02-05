@@ -78,7 +78,7 @@ trait ModelParserTrait
             $Table = $controller->$tableName;
             $record = $this->getData($Table, $methodName, $findMethod, $findOptions);
         } catch (Exception $e) {
-                Log::debug($e->getMessage());
+            Log::debug($e->getMessage());
             return false;
         }
 

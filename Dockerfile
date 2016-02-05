@@ -1,4 +1,4 @@
-FROM php:5.4
+FROM php:5.5
 
 ENV DEBIAN_FRONTEND=noninteractive LC_ALL=C DOCKER=1
 
@@ -30,7 +30,7 @@ RUN apt-get -qq install -qq -y php5-xdebug && pecl install -o -f xdebug && \
 
     rm -rf /tmp/pear && \
 
-    echo "zend_extension=/usr/local/lib/php/extensions/no-debug-non-zts-20100525/xdebug.so" > /usr/local/etc/php/conf.d/xdebug.ini
+    echo "zend_extension=/usr/local/lib/php/extensions/no-debug-non-zts-20121212/xdebug.so" > /usr/local/etc/php/conf.d/xdebug.ini
 
 RUN \
 

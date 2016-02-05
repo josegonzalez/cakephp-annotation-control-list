@@ -58,8 +58,6 @@ RUN sh -c "if [ '$COVERALLS' = '1' ]; then mkdir -p build/logs; fi"
 
 RUN command -v phpenv > /dev/null && phpenv rehash || true
 
-RUN ls /usr/local/lib/php/extensions/
-
 ADD . /app
 
 ENV COVERALLS=1 DEFAULT=1 PHPCS=1

@@ -32,7 +32,6 @@ before_script:
   - composer install --prefer-source --no-interaction
   - sh -c "if [ '$COVERALLS' = '1' ]; then mkdir -p build/logs; fi"
   - command -v phpenv > /dev/null && phpenv rehash || true
-  - ls /usr/local/lib/php/extensions/
 
 script:
   - sh -c "if [ '$COVERALLS' = '1' ]; then vendor/bin/phpunit --version; fi"

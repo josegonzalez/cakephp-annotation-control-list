@@ -38,6 +38,8 @@ class TestModelParserImpl
 
 class TestModelAnnotationController extends Controller
 {
+    public $modelClass = 'Post';
+
     public function none()
     {
     }
@@ -93,7 +95,7 @@ class TestModelAnnotationController extends Controller
 
     /**
      * @isAuthorized.roles authenticated
-     * @isAuthorized.model Post
+     * @isAuthorized.table Post
      * @isAuthorized.find first
      */
     public function has_finder()
@@ -103,7 +105,7 @@ class TestModelAnnotationController extends Controller
     /**
      * @isAuthorized.roles authenticated
      * @isAuthorized.always ["group", "admin"]
-     * @isAuthorized.model Post
+     * @isAuthorized.table Post
      * @isAuthorized.find first
      */
     public function always_if_admin()
@@ -113,7 +115,7 @@ class TestModelAnnotationController extends Controller
     /**
      * @isAuthorized.roles authenticated
      * @isAuthorized.always ["group", "admin"]
-     * @isAuthorized.model Post
+     * @isAuthorized.table Post
      * @isAuthorized.find first
      * @isAuthorized.conditions.if ["group", "group_name"]
      */
@@ -286,7 +288,7 @@ class ModelParserTraitTest extends TestCase
     public function testGetFinder()
     {
         $AnnotationsBag = new AnnotationsBag([
-            'model' => 'Post',
+            'table' => 'Post',
             'method' => 'find',
             'find' => 'first',
             'findOptions' => [],

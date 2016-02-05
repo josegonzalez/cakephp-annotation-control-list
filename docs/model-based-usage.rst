@@ -57,7 +57,7 @@ Annotate your methods with the roles you want to allow:
     /**
      * Only allows authenticated users access if the finder returns data
      * @isAuthorized.roles authenticated
-     * @isAuthorized.model Post
+     * @isAuthorized.table Post
      * @isAuthorized.find active
      */
     public function active_post() {
@@ -68,7 +68,7 @@ Annotate your methods with the roles you want to allow:
      * method returns data
      *
      * @isAuthorized.roles authenticated
-     * @isAuthorized.model Post
+     * @isAuthorized.table Post
      * @isAuthorized.method check_active
      */
     public function active_post() {
@@ -82,7 +82,7 @@ Annotate your methods with the roles you want to allow:
      *
      * @isAuthorized.roles authenticated
      * @isAuthorized.always ["group", "admin"]
-     * @isAuthorized.model Post
+     * @isAuthorized.table Post
      * @isAuthorized.find active
      */
     public function always_if_admin() {
@@ -99,7 +99,7 @@ Annotate your methods with the roles you want to allow:
      * "if" conditions, and if any are true, then access is granted
      * @isAuthorized.roles authenticated
      * @isAuthorized.always ["group", "admin"]
-     * @isAuthorized.model Post
+     * @isAuthorized.table Post
      * @isAuthorized.find edit
      * @isAuthorized.conditions.if ["group", "Post.group_name"]
      */

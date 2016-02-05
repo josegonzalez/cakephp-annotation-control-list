@@ -17,8 +17,8 @@ For the `CakePHP book <http://josediazgonzalez.com/cakephp-book/>`__ I wrote, I 
 Requirements
 ------------
 
-* PHP 5.4+
-* CakePHP 2.x
+* PHP 5.6+
+* CakePHP 3.2+
 
 .. toctree::
    :maxdepth: 3

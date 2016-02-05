@@ -10,20 +10,22 @@ Setup your ``AuthComponent`` to use the ``AnnotationAuthorize`` and ``Annotation
 
 .. code:: php
 
-    public $components = [
-      'Auth' => [
-        'authenticate' => [
-          'AnnotationControlList.ModelForm' => [
-            'passwordHasher' => 'Blowfish',
-            'roleField' => 'role',  // `roleField` is `role` by default
-          ]
-        ],
-        'authorize' => [
-          'AnnotationControlList.Model',
-          'roleField' => 'role',  // `roleField` is `role` by default
-        ],
-      ]
-    ];
+    public function initialize()
+    {
+        parent::initialize();
+        $this->loadComponent('Auth', [
+            'authenticate' => [
+                'Josegonzalez/AnnotationControlList.ModelForm' => [
+                    'passwordHasher' => 'Blowfish',
+                    'roleField' => 'role',  // `roleField` is `role` by default
+                ]
+            ],
+            'authorize' => [
+                'Josegonzalez/AnnotationControlList.Model',
+                'roleField' => 'role',  // `roleField` is `role` by default
+            ],
+        ]);
+    }
 
 Requiring roles for a given action
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

@@ -10,20 +10,22 @@ Setup your ``AuthComponent`` to use the ``AnnotationAuthorize`` and ``Annotation
 
 .. code:: php
 
-    public $components = [
-      'Auth' => [
-        'authenticate' => [
-          'AnnotationControlList.AnnotationForm' => [
-            'passwordHasher' => 'Blowfish',
-            'roleField' => 'role',  // `roleField` is `role` by default
-          ]
-        ],
-        'authorize' => [
-          'AnnotationControlList.Annotation',
-          'roleField' => 'role',  // `roleField` is `role` by default
-        ],
-      ]
-    ];
+    public function initialize()
+    {
+        parent::initialize();
+        $this->loadComponent('Auth', [
+            'authenticate' => [
+                'Josegonzalez/AnnotationControlList.AnnotationForm' => [
+                    'passwordHasher' => 'Blowfish',
+                    'roleField' => 'role',  // `roleField` is `role` by default
+                ]
+            ],
+            'authorize' => [
+                'Josegonzalez/AnnotationControlList.Annotation',
+                'roleField' => 'role',  // `roleField` is `role` by default
+            ],
+        ]);
+    }
 
 Requiring roles for a given action
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -73,7 +75,6 @@ The following classes are available for your convenience:
 
 - ``AnnotationAuthorize``
 - ``AnnotationBasicAuthenticate``
-- ``AnnotationBlowfishAuthenticate``
 - ``AnnotationDigestAuthenticate``
 - ``AnnotationFormAuthenticate``
 

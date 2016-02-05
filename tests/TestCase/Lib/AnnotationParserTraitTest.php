@@ -3,8 +3,8 @@ namespace Josegonzalez\AnnotationControlList\Test\TestCase\Lib;
 
 // $pluginPath = App::pluginPath('AnnotationControlList');
 // App::build([
-//  'Controller' => [$pluginPath . 'Test' . DS . 'test_app' . DS . 'Controller' . DS],
-//  'Lib' => [$pluginPath . 'Test' . DS . 'test_app' . DS . 'Lib' . DS],
+//    'Controller' => [$pluginPath . 'Test' . DS . 'test_app' . DS . 'Controller' . DS],
+//    'Lib' => [$pluginPath . 'Test' . DS . 'test_app' . DS . 'Lib' . DS],
 // ]);
 
 use Cake\Controller\ComponentRegistry;

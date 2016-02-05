@@ -134,6 +134,7 @@ class AnnotationParserTraitTest extends TestCase
 
     /**
      * @covers Josegonzalez\AnnotationControlList\Lib\AnnotationParserTrait::getPrefixedAnnotations
+     * @covers Josegonzalez\AnnotationControlList\Lib\AnnotationParserTrait::useNamespace
      */
     public function testGetPrefixedAnnotations()
     {
@@ -152,6 +153,7 @@ class AnnotationParserTraitTest extends TestCase
 
     /**
      * @covers Josegonzalez\AnnotationControlList\Lib\AnnotationParserTrait::getAnnotations
+     * @covers Josegonzalez\AnnotationControlList\Lib\AnnotationParserTrait::reader
      */
     public function testGetAnnotations()
     {

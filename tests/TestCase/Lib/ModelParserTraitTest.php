@@ -145,8 +145,8 @@ class ModelParserTraitTest extends TestCase
      */
     public function testPerformCheck()
     {
-        $this->Controller->request = $this->getMock('stdClass');
-        $this->Controller->Post = $this->getMock('stdClass', ['find']);
+        $this->Controller->Request = $this->getMock('Cake\Network\Request');
+        $this->Controller->Post = $this->getMock('Cake\ORM\Table', ['find']);
         $this->Controller->Post->expects($this->at(0))
             ->method('find')
             ->will($this->returnValue(null));
@@ -162,7 +162,7 @@ class ModelParserTraitTest extends TestCase
         $this->Controller->Post->expects($this->at(5))
             ->method('find')
             ->will($this->returnValue(['group_name' => 'not_troll']));
-        $this->Controller->request->params = [];
+        $this->Controller->Request->params = [];
 
         $TraitObject = new TestModelParserImpl($this->Controller);
         $this->assertFalse($TraitObject->isAuthorized([], 'none'));
@@ -294,7 +294,7 @@ class ModelParserTraitTest extends TestCase
             'findOptions' => [],
         ]);
 
-        $Controller = $this->getMock('\Cake\Controller\Controller');
+        $Controller = $this->getMock('\Cake\Controller\Controller', [], [], '', false);
         $this->assertEquals(
             ['Post', 'find', 'first', []],
             $this->TraitObject->getFinder($Controller, $AnnotationsBag)
@@ -306,7 +306,7 @@ class ModelParserTraitTest extends TestCase
             'findOptions' => [],
         ]);
 
-        $Controller = $this->getMock('\Cake\Controller\Controller');
+        $Controller = $this->getMock('\Cake\Controller\Controller', [], [], '', false);
         $Controller->modelClass = 'Post';
 
         $this->assertEquals(

@@ -13,6 +13,8 @@ use Cake\Core\Configure;
 use Cake\Core\Plugin;
 use Cake\TestSuite\TestCase;
 use Josegonzalez\AnnotationControlList\Lib\AnnotationParserTrait;
+use Minime\Annotations\AnnotationsBag;
+use ReflectionClass;
 
 class TestAnnotationParserImpl
 {
@@ -90,6 +92,7 @@ class TestAnnotationController extends Controller
     }
 
     /**
+     * @some_prefix value
      * @some_prefix.roles ["prefix"]
      */
     public function prefix_action()
@@ -134,7 +137,6 @@ class AnnotationParserTraitTest extends TestCase
 
     /**
      * @covers Josegonzalez\AnnotationControlList\Lib\AnnotationParserTrait::getPrefixedAnnotations
-     * @covers Josegonzalez\AnnotationControlList\Lib\AnnotationParserTrait::useNamespace
      */
     public function testGetPrefixedAnnotations()
     {
@@ -164,6 +166,30 @@ class AnnotationParserTraitTest extends TestCase
         $adminAnnotations = $this->traitObject->getAnnotations('administrative');
         $this->assertNotEquals($anonymousAnnotations, $adminAnnotations);
         $this->assertEquals('admin, manager', $adminAnnotations->get('roles'));
+    }
+
+    /**
+     * @covers Josegonzalez\AnnotationControlList\Lib\AnnotationParserTrait::useNamespace
+     */
+    public function testGetFinder()
+    {
+        $AnnotationsBag = new AnnotationsBag([
+            'some_prefix.table' => 'Post',
+            'some_prefix.method' => 'find',
+            'some_prefix' => 'value',
+            'find' => 'first',
+            'findOptions' => [],
+        ]);
+
+        $expected = new AnnotationsBag([
+            'table' => 'Post',
+            'method' => 'find',
+        ]);
+        $actual = $this->protectedMethodCall($this->traitObject, 'useNamespace', [$AnnotationsBag, 'some_prefix']);
+        $this->assertEquals(
+            $expected,
+            $actual
+        );
     }
 
     /**
@@ -311,5 +337,13 @@ class AnnotationParserTraitTest extends TestCase
             [['admin', 'manager'], 'administrative'],
             [['admin', 'manager', 'ceo'], 'administrative_two'],
         ];
+    }
+
+    protected function protectedMethodCall(&$object, $methodName, array $parameters = [])
+    {
+        $reflection = new ReflectionClass(get_class($object));
+        $method = $reflection->getMethod($methodName);
+        $method->setAccessible(true);
+        return $method->invokeArgs($object, $parameters);
     }
 }

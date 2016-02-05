@@ -23,6 +23,10 @@
             <directory suffix=".php">./vendor</directory>
             <file>./tests/bootstrap.php</file>
         </blacklist>
+
+        <whitelist>
+            <directory suffix=".php">./src</directory>
+        </whitelist>
     </filter>
 
     <!-- Setup a listener for fixtures -->

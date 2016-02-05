@@ -1,8 +1,8 @@
 <?php
 namespace Josegonzalez\AnnotationControlList\Auth;
 
-use Josegonzalez\AnnotationControlList\Lib\AnnotationParserTrait;
 use Cake\Auth\BasicAuthenticate;
+use Josegonzalez\AnnotationControlList\Lib\AnnotationParserTrait;
 
 class AnnotationBasicAuthenticate extends BasicAuthenticate
 {

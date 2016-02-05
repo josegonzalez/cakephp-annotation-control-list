@@ -1,8 +1,8 @@
 <?php
 namespace Josegonzalez\AnnotationControlList\Auth;
 
-use Josegonzalez\AnnotationControlList\Lib\ModelParserTrait;
 use Cake\Auth\DigestAuthenticate;
+use Josegonzalez\AnnotationControlList\Lib\ModelParserTrait;
 
 class ModelDigestAuthenticate extends DigestAuthenticate
 {

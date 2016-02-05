@@ -1,8 +1,8 @@
 <?php
 namespace Josegonzalez\AnnotationControlList\Auth;
 
-use Josegonzalez\AnnotationControlList\Lib\ModelParserTrait;
 use Cake\Auth\FormAuthenticate;
+use Josegonzalez\AnnotationControlList\Lib\ModelParserTrait;
 
 class ModelFormAuthenticate extends FormAuthenticate
 {

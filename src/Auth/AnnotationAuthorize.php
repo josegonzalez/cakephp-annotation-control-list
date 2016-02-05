@@ -1,8 +1,8 @@
 <?php
 namespace Josegonzalez\AnnotationControlList\Auth;
 
-use Josegonzalez\AnnotationControlList\Lib\AnnotationParserTrait;
 use Cake\Auth\BaseAuthorize;
+use Josegonzalez\AnnotationControlList\Lib\AnnotationParserTrait;
 
 class AnnotationAuthorize extends BaseAuthorize
 {

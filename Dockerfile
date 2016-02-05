@@ -42,7 +42,7 @@ RUN \
 
     phpunit --version
 
-ENV DB=mysql db_dsn='mysql://travis@0.0.0.0/cakephp_test'
+ENV DEFAULT=1
 
 ADD composer.json /app/composer.json
 

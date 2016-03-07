@@ -180,8 +180,8 @@ trait AnnotationParserTrait
      */
     public function getController()
     {
-        if (!empty($this->ComponentRegistry)) {
-            return $this->ComponentRegistry->getController();
+        if (!empty($this->_registry)) {
+            return $this->_registry->getController();
         }
 
         return $this->_Controller;

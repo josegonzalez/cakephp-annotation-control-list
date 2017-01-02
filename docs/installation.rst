@@ -1,10 +1,10 @@
 Installation
-------------
+============
 
 The only officialy supported method of installing this plugin is via composer.
 
 Using `Composer <http://getcomposer.org/>`__
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+--------------------------------------------
 
 `View on
 Packagist <https://packagist.org/packages/josegonzalez/cakephp-annotation-control-list>`__,
@@ -26,7 +26,7 @@ you add ``/Plugins/Upload`` to your .gitignore file. (Why? `read
 this <http://getcomposer.org/doc/faqs/should-i-commit-the-dependencies-in-my-vendor-directory.md>`__.)
 
 Enable plugin
-~~~~~~~~~~~~~
+-------------
 
 You need to enable the plugin your ``config/bootstrap.php`` file:
 

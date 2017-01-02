@@ -1,11 +1,9 @@
-.. cakephp-annotation-control-list documentation master file, created by
-   sphinx-quickstart on Fri Nov 14 00:17:09 2014.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+************
+Introduction
+************
 
-Welcome to CakePHP AnnotationControlList's documentation!
-=========================================================
-
+Annotation Control List Plugin 3.0
+==================================
 
 A simple, annotation-based ACL System for CakePHP
 
@@ -19,18 +17,3 @@ Requirements
 
 * PHP 5.6+
 * CakePHP 3.2+
-
-.. toctree::
-   :maxdepth: 3
-
-    Installation <installation>
-    Role-based Usage <role-based-usage>
-    Model-based Usage <model-based-usage>
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
-

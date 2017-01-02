@@ -1,10 +1,10 @@
 Model-based usage
----------------------
+=================
 
 The ``AnnotationControlList`` plugin has two modes of usage. The ``model`` mode requires more configuration than the ``role`` mode, but also allows you to extend access control to include information from your database records.
 
 Setup
-~~~~~
+-----
 
 Setup your ``AuthComponent`` to use the ``AnnotationAuthorize`` and ``AnnotationFormAuthenticate`` classes:
 
@@ -28,7 +28,7 @@ Setup your ``AuthComponent`` to use the ``AnnotationAuthorize`` and ``Annotation
     }
 
 Requiring roles for a given action
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+----------------------------------
 
 Annotate your methods with the roles you want to allow:
 
@@ -114,7 +114,7 @@ When a `Model::find()` is called, the current request parameters - as well as th
 You can specify one or more roles in any of the above formats. If no role is specified for an action, then no user will be allowed access.
 
 Special Roles
-~~~~~~~~~~~~~
+-------------
 
 The following roles have a special meaning:
 
@@ -123,7 +123,7 @@ The following roles have a special meaning:
 - ``authenticated``: Users that have been authenticated fall in this role
 
 Available Classes
-~~~~~~~~~~~~~~~~~
+-----------------
 
 The following classes are available for your convenience:
 
@@ -153,7 +153,7 @@ These extend the core classes and override the following methods:
 - ``isAssoc``
 
 Custom Authenticate Classes
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---------------------------
 
 The ``AnnotationFormAuthenticate`` class extends ``FormAuthenticate`` to override the ``unauthorized()`` method, allowing us to use the annotations to define access even if the user has not yet authenticated. You can follow this pattern for any Authenticate class you create/use by adding the following to either your custom authenticate class or a subclass of one of the core classes:
 

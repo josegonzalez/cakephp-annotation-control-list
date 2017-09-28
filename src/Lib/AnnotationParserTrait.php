@@ -47,6 +47,7 @@ trait AnnotationParserTrait
 
         // allow only users who have the correct role
         $roleField = $this->roleField();
+
         return in_array($user[$roleField], $roles);
     }
 
@@ -59,6 +60,7 @@ trait AnnotationParserTrait
     public function getActionRoles($action)
     {
         $annotations = $this->getPrefixedAnnotations($action);
+
         return $this->processRoles($annotations->get('roles'));
     }
 
@@ -170,6 +172,7 @@ trait AnnotationParserTrait
     public function unauthenticated(Request $request, Response $response)
     {
         $response;
+
         return $this->isAuthorized(null, $request->action);
     }
 

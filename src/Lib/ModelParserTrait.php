@@ -67,6 +67,7 @@ trait ModelParserTrait
         if ($this->missingFinder($tableName, $methodName, $findMethod)) {
             $this->prefix('isAuthorized');
             $roles = $this->getActionRoles($action);
+
             return in_array('authenticated', $roles);
         }
 
@@ -79,6 +80,7 @@ trait ModelParserTrait
             $record = $this->getData($Table, $methodName, $findMethod, $findOptions);
         } catch (Exception $e) {
             Log::debug($e->getMessage());
+
             return false;
         }
 
@@ -88,6 +90,7 @@ trait ModelParserTrait
         }
 
         $rules = $this->ensureList($rules);
+
         return $this->checkIfRules($rules, $user, $record);
     }
 
@@ -147,13 +150,14 @@ trait ModelParserTrait
                 return true;
             }
         }
+
         return false;
     }
 
     /**
      * Checks whether a variable is an array
      *
-     * @param Table $table Instance of a table
+     * @param \Cake\ORM\Table $Table Instance of a table
      * @param string $methodName Name of method
      * @param string $findMethod Find method to use
      * @param array $findOptions array of options to pass to the table method
@@ -172,6 +176,7 @@ trait ModelParserTrait
         if ($methodName == 'find') {
             return $Table->find($findMethod, $findOptions);
         }
+
         return $Table->$methodName($findOptions);
     }
 
@@ -224,6 +229,7 @@ trait ModelParserTrait
         if (count($rules) == 2 && !is_array($rules[0])) {
             return [[$rules[0], $rules[1]]];
         }
+
         return $rules;
     }
 
